@@ -9,11 +9,14 @@ manufacturing problems, built from scratch on open datasets:
 Every notebook explains **each step in detail** (the *what*, the *why*, and how to
 read the output), so it doubles as a learning resource — not just runnable code.
 
-### ▶ Run the whole thing in one click
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/gauravs19/iiot-predictive-maintenance/blob/main/notebooks/run_all.ipynb)
-&nbsp; **[`run_all.ipynb`](notebooks/run_all.ipynb)** runs the entire pipeline
-(data → features → PdM → anomaly detection) end-to-end. In Colab: `Runtime → Run all`.
-Prefer the detailed step-by-step version? Open notebooks `00`–`03` in order.
+### ▶ Open in Colab
+| Notebook | For | |
+|---|---|---|
+| **[`predictive_maintenance_tutorial.ipynb`](notebooks/predictive_maintenance_tutorial.ipynb)** | the **full teaching version** — every step explained, in 4 parts | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/gauravs19/iiot-predictive-maintenance/blob/main/notebooks/predictive_maintenance_tutorial.ipynb) |
+| **[`run_all.ipynb`](notebooks/run_all.ipynb)** | a **quick condensed run** — same pipeline, no explanations | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/gauravs19/iiot-predictive-maintenance/blob/main/notebooks/run_all.ipynb) |
+
+In Colab, `Runtime → Run all` runs everything. The first cell clones the repo and
+installs dependencies automatically.
 
 > **Scope:** this project is the **ML core**. The GenAI layer (LLM-generated
 > work-orders + RAG over a vector DB of incident signatures) lives in a separate
@@ -23,13 +26,14 @@ Prefer the detailed step-by-step version? Open notebooks `00`–`03` in order.
 
 ## The ML → capability ladder
 
-| Notebook | Capability | Techniques | Dataset |
+The teaching notebook is organised into four parts that mirror the pipeline:
+
+| Part | Capability | Techniques | Dataset |
 |---|---|---|---|
-| [`run_all`](notebooks/run_all.ipynb) | **Everything, end-to-end** | full pipeline in one notebook | both |
-| [`00_setup_and_data`](notebooks/00_setup_and_data.ipynb) | Data ingestion | UCI + NASA loaders, validation | AI4I 2020, C-MAPSS |
-| [`01_eda_and_features`](notebooks/01_eda_and_features.ipynb) | Feature engineering | RUL labels, rolling stats, sequence windows | C-MAPSS |
-| [`02_predictive_maintenance`](notebooks/02_predictive_maintenance.ipynb) | Predictive maintenance | Random Forest + SHAP, **LSTM** RUL regression | AI4I + C-MAPSS |
-| [`03_anomaly_detection`](notebooks/03_anomaly_detection.ipynb) | Anomaly detection | Isolation Forest, **Autoencoder** (reconstruction error) | C-MAPSS |
+| 1 · Setup & Data | Data ingestion + data dictionaries | UCI + NASA loaders, sample records | AI4I 2020, C-MAPSS |
+| 2 · EDA & Features | Feature engineering | RUL labels, rolling stats, sequence windows | C-MAPSS |
+| 3 · Predictive Maintenance | Predict failures & remaining life | Random Forest + SHAP, **LSTM** RUL regression | AI4I + C-MAPSS |
+| 4 · Anomaly Detection | Flag abnormal behaviour (unlabelled) | Isolation Forest, **Autoencoder** (reconstruction error) | C-MAPSS |
 
 ### Headline results (reproducible on a laptop CPU)
 - **Failure classification (AI4I):** ROC-AUC ≈ **0.96**
@@ -61,11 +65,11 @@ git clone https://github.com/gauravs19/iiot-predictive-maintenance.git
 cd iiot-predictive-maintenance
 python -m venv .venv && . .venv/Scripts/activate   # Windows; use bin/activate on macOS/Linux
 pip install -r requirements.txt
-jupyter notebook            # then open notebooks/ in order 00 → 03
+jupyter notebook            # then open notebooks/predictive_maintenance_tutorial.ipynb
 ```
 
-Run the notebooks **in order** (00 → 03); each is self-contained but they build on
-the same concepts.
+Open **`predictive_maintenance_tutorial.ipynb`** and run top to bottom, or
+**`run_all.ipynb`** for the condensed version.
 
 ---
 
@@ -73,7 +77,7 @@ the same concepts.
 
 ```
 iiot-predictive-maintenance/
-├── notebooks/                 # 00–03, heavily annotated, Colab-ready
+├── notebooks/                 # tutorial (teaching) + run_all (quick), Colab-ready
 ├── src/                       # reusable, tested pipeline code
 │   ├── data.py                #   dataset download + loading
 │   ├── features.py            #   RUL labels, rolling features, sequence windows
