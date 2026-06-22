@@ -1,0 +1,21 @@
+# Data & artifacts are regenerable — keep them out of git
+data/
+artifacts/
+*.pt
+*.pkl
+*.parquet
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+
+# Notebooks
+.ipynb_checkpoints/
+
+# OS / IDE
+.DS_Store
+.vscode/
+.idea/

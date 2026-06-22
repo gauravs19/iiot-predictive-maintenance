@@ -1,0 +1,18 @@
+# Core
+numpy>=1.26
+pandas>=2.1
+scipy>=1.11
+
+# Classical ML
+scikit-learn>=1.4
+xgboost>=2.0
+shap>=0.44
+
+# Deep learning (CPU build is fine; Colab provides GPU automatically)
+torch>=2.2
+
+# Viz / notebooks
+matplotlib>=3.8
+seaborn>=0.13
+jupyter>=1.0
+ucimlrepo>=0.0.7   # one-line fetch of the AI4I 2020 dataset from UCI
