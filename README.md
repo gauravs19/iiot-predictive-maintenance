@@ -9,6 +9,12 @@ manufacturing problems, built from scratch on open datasets:
 Every notebook explains **each step in detail** (the *what*, the *why*, and how to
 read the output), so it doubles as a learning resource — not just runnable code.
 
+### ▶ Run the whole thing in one click
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/gauravs19/iiot-predictive-maintenance/blob/main/notebooks/run_all.ipynb)
+&nbsp; **[`run_all.ipynb`](notebooks/run_all.ipynb)** runs the entire pipeline
+(data → features → PdM → anomaly detection) end-to-end. In Colab: `Runtime → Run all`.
+Prefer the detailed step-by-step version? Open notebooks `00`–`03` in order.
+
 > **Scope:** this project is the **ML core**. The GenAI layer (LLM-generated
 > work-orders + RAG over a vector DB of incident signatures) lives in a separate
 > sibling project, **`iiot-ai-rag`**, which *consumes* this project's model outputs.
@@ -19,6 +25,7 @@ read the output), so it doubles as a learning resource — not just runnable cod
 
 | Notebook | Capability | Techniques | Dataset |
 |---|---|---|---|
+| [`run_all`](notebooks/run_all.ipynb) | **Everything, end-to-end** | full pipeline in one notebook | both |
 | [`00_setup_and_data`](notebooks/00_setup_and_data.ipynb) | Data ingestion | UCI + NASA loaders, validation | AI4I 2020, C-MAPSS |
 | [`01_eda_and_features`](notebooks/01_eda_and_features.ipynb) | Feature engineering | RUL labels, rolling stats, sequence windows | C-MAPSS |
 | [`02_predictive_maintenance`](notebooks/02_predictive_maintenance.ipynb) | Predictive maintenance | Random Forest + SHAP, **LSTM** RUL regression | AI4I + C-MAPSS |
