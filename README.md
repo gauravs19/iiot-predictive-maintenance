@@ -6,14 +6,16 @@ manufacturing problems, built from scratch on open datasets:
 1. **Predictive maintenance** — *will this machine fail, and how soon?*
 2. **Anomaly detection** — *is this machine behaving abnormally right now?*
 
-Every notebook explains **each step in detail** (the *what*, the *why*, and how to
-read the output), so it doubles as a learning resource — not just runnable code.
+The two use-case notebooks are written for **beginners** — they assume minimal
+Machine-Learning knowledge and explain every concept, abbreviation, library, and chart
+as they go (each ends with a glossary). They are **independent**: read either on its own.
 
 ### ▶ Open in Colab
-| Notebook | For | |
+| Notebook | What it teaches | |
 |---|---|---|
-| **[`predictive_maintenance_tutorial.ipynb`](notebooks/predictive_maintenance_tutorial.ipynb)** | the **full teaching version** — every step explained, in 4 parts | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/gauravs19/iiot-predictive-maintenance/blob/main/notebooks/predictive_maintenance_tutorial.ipynb) |
-| **[`run_all.ipynb`](notebooks/run_all.ipynb)** | a **quick condensed run** — same pipeline, no explanations | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/gauravs19/iiot-predictive-maintenance/blob/main/notebooks/run_all.ipynb) |
+| **[`predictive_maintenance.ipynb`](notebooks/predictive_maintenance.ipynb)** | *Will it fail, and how soon?* — supervised ML: Random Forest classification + LSTM RUL regression | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/gauravs19/iiot-predictive-maintenance/blob/main/notebooks/predictive_maintenance.ipynb) |
+| **[`anomaly_detection.ipynb`](notebooks/anomaly_detection.ipynb)** | *Is it behaving abnormally now?* — unsupervised ML: Isolation Forest + Autoencoder | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/gauravs19/iiot-predictive-maintenance/blob/main/notebooks/anomaly_detection.ipynb) |
+| [`run_all.ipynb`](notebooks/run_all.ipynb) | both pipelines, condensed, no explanations | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/gauravs19/iiot-predictive-maintenance/blob/main/notebooks/run_all.ipynb) |
 
 In Colab, `Runtime → Run all` runs everything. The first cell clones the repo and
 installs dependencies automatically.
@@ -24,16 +26,15 @@ installs dependencies automatically.
 
 ---
 
-## The ML → capability ladder
+## The two use cases
 
-The teaching notebook is organised into four parts that mirror the pipeline:
+| Use case | Learning type | Question | Techniques | Dataset |
+|---|---|---|---|---|
+| **Predictive maintenance** | supervised | will it fail / how soon? | Random Forest + SHAP, **LSTM** RUL regression | AI4I 2020 + C-MAPSS |
+| **Anomaly detection** | unsupervised | is it abnormal now? | Isolation Forest, **Autoencoder** (reconstruction error) | C-MAPSS |
 
-| Part | Capability | Techniques | Dataset |
-|---|---|---|---|
-| 1 · Setup & Data | Data ingestion + data dictionaries | UCI + NASA loaders, sample records | AI4I 2020, C-MAPSS |
-| 2 · EDA & Features | Feature engineering | RUL labels, rolling stats, sequence windows | C-MAPSS |
-| 3 · Predictive Maintenance | Predict failures & remaining life | Random Forest + SHAP, **LSTM** RUL regression | AI4I + C-MAPSS |
-| 4 · Anomaly Detection | Flag abnormal behaviour (unlabelled) | Isolation Forest, **Autoencoder** (reconstruction error) | C-MAPSS |
+Both share the data loaders and feature engineering in `src/`, but each notebook is
+self-contained — it loads and explains the data it needs from scratch.
 
 ### Headline results (reproducible on a laptop CPU)
 - **Failure classification (AI4I):** ROC-AUC ≈ **0.96**
@@ -65,11 +66,11 @@ git clone https://github.com/gauravs19/iiot-predictive-maintenance.git
 cd iiot-predictive-maintenance
 python -m venv .venv && . .venv/Scripts/activate   # Windows; use bin/activate on macOS/Linux
 pip install -r requirements.txt
-jupyter notebook            # then open notebooks/predictive_maintenance_tutorial.ipynb
+jupyter notebook            # then open either notebook in notebooks/
 ```
 
-Open **`predictive_maintenance_tutorial.ipynb`** and run top to bottom, or
-**`run_all.ipynb`** for the condensed version.
+Open **`predictive_maintenance.ipynb`** or **`anomaly_detection.ipynb`** and run top
+to bottom, or **`run_all.ipynb`** for the condensed version of both.
 
 ---
 
@@ -77,7 +78,7 @@ Open **`predictive_maintenance_tutorial.ipynb`** and run top to bottom, or
 
 ```
 iiot-predictive-maintenance/
-├── notebooks/                 # tutorial (teaching) + run_all (quick), Colab-ready
+├── notebooks/                 # 2 beginner notebooks (one per use case) + run_all, Colab-ready
 ├── src/                       # reusable, tested pipeline code
 │   ├── data.py                #   dataset download + loading
 │   ├── features.py            #   RUL labels, rolling features, sequence windows

@@ -16,6 +16,7 @@ Designed to work identically on a laptop and on Google Colab.
 from __future__ import annotations
 
 import io
+import re
 import urllib.request
 import zipfile
 from pathlib import Path
@@ -52,7 +53,6 @@ def load_ai4i() -> pd.DataFrame:
 
         ds = fetch_ucirepo(id=601)
         df = pd.concat([ds.data.features, ds.data.targets], axis=1)
-        return df
     except Exception as exc:  # pragma: no cover - network/dependency fallback
         print(f"[data] ucimlrepo unavailable ({exc}); using CSV mirror.")
         url = (
@@ -63,7 +63,13 @@ def load_ai4i() -> pd.DataFrame:
         with zipfile.ZipFile(io.BytesIO(raw)) as zf:
             csv_name = next(n for n in zf.namelist() if n.lower().endswith(".csv"))
             with zf.open(csv_name) as fh:
-                return pd.read_csv(fh)
+                df = pd.read_csv(fh)
+
+    # Normalise column names so both sources agree: strip unit suffixes like
+    # "Air temperature [K]" -> "Air temperature". (ucimlrepo omits them; the CSV
+    # mirror includes them.) Units are documented in the notebook instead.
+    df.columns = [re.sub(r"\s*\[.*?\]", "", c).strip() for c in df.columns]
+    return df
 
 
 # --------------------------------------------------------------------------- #
